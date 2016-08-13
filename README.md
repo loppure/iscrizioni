@@ -7,6 +7,16 @@ Installare le dipendenze di php
 composer install
 ```
 
+Creare il database
+```sh
+php bin/console doctrine:database:create
+```
+
+Creare la tabella
+```sh
+php bin/console doctrine:schema:create
+```
+
 Installare le dipendenze di nodejs
 ```sh
 npm install
