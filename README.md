@@ -31,7 +31,7 @@ Servire il progetto
 ```sh
 php bin/console server:run
 ```
-localhost:8000
+[localhost:8000]
 
 Stylus documentation: http://stylus-lang.com/
 
