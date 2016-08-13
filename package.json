@@ -1,0 +1,21 @@
+{
+    "name": "loppure-associazione",
+    "version": "1.0.0",
+    "description": "Sito di registrazione",
+    "main": "web/app.php",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "watch": "grunt watch",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Omar Polo <yum1096@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-contrib-stylus": "^1.2.0",
+        "grunt-contrib-watch": "^1.0.0",
+        "kouto-swiss": "^0.12.0"
+    }
+}

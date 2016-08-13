@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+    <h1>Backend</h1>
+
+    <p><a href="{{ path('list') }}">Lista utenti</a></p>
+
+    <p><a href="{{ logout_path('main') }}">Logout</a></p>
+{% endblock %}

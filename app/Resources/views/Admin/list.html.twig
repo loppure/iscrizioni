@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Lista utenti{% endblock %}
+
+{% block body %}
+    <h1>Lista utenti</h1>
+
+    <p><a href="{{ path('admin') }}">Home</a></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Indirizzo</th>
+                <th>Data di nascita</th>
+                <th>Professione</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.fullName }}</td>
+                <td>{{ user.addressString }}</td>
+                <td>{{ user.birth|date('d/M/Y') }}</td>
+                <td>{{ user.job }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
