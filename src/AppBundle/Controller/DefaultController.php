@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Payum\Core\Request\GetHumanStatus;
 use AppBundle\Entity\User;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -77,7 +78,8 @@ class DefaultController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('thanks');
+            return $this->paymentAction($user);
+            /* return $this->redirectToRoute('payment'); */
         }
 
         return array(
@@ -85,12 +87,63 @@ class DefaultController extends Controller
         );
     }
 
+    private function paymentAction(User $user)
+    {
+        $gatewayName = "offline";
+        $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
+
+        $job = $user->getJobInt();
+
+        switch ($user->getJobInt()) {
+        case User::SUPERIORI:
+            $amount = 5;
+            break;
+        case User::UNIVERSITA:
+            $amount = 10;
+        default:
+            $amount = 20;
+            break;
+        }
+
+        $payment = $storage->create();
+        $payment->setNumber(uniqid());
+        $payment->setCurrencyCode('EUR');
+        $payment->setTotalAmount($amount); //
+        $payment->setDescription('A description'); //
+        $payment->setClientEmail($user->getEmail()); //
+
+        $storage->update($payment);
+
+        $captureToken = $this->get('payum')->getTokenFactory()->createCaptureToken(
+            $gatewayName,
+            $payment,
+            'thanks'
+        );
+
+        return $this->redirect($captureToken->getTargetUrl());
+    }
+
     /**
      * @Route("/thanks", name="thanks")
      * @Template("default/thanks.html.twig")
      */
-    public function thanksAction()
+    public function thanksAction(Request $request)
     {
-        return array();
+        $token = $this->get('payum')->getHttpRequestVerifier()->verify($request);
+        $gateway = $this->get('payum')->getGateway($token->getGatewayname());
+
+        // remainder: invalidate with `$this->get('payum')->getHttpRequestVerifier()->invalidate($token)`
+
+        $gateway->execute($status = new GetHumanStatus($token));
+        $payment = $status->getFirstModel();
+
+        return array(
+            'status' => $status->getValue(),
+            'payment' => [
+                'total_amount' => $payment->getTotalAmount(),
+                'currency_code' => $payment->getCurrencyCode(),
+                'details' => $payment->getDetails()
+            ]
+        );
     }
 }
