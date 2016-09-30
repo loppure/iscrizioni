@@ -1,0 +1,73 @@
+/* button-like - elementi*/
+.button-like-post
+  margin: 6px 16px 7px 32px
+  color: rgba(0, 0, 0, 0.5)
+  background-color: #DDDDDD
+  background-repeat: no-repeat
+  background-size: 67%
+  background-position: 50% 60%
+  height: 33px
+  width: 33px
+  border-radius: 50%
+  padding: 0
+  line-height: 0
+  background-image: url("img/svg/icon-like-gray-piccola.svg")
+
+  @media (max-width: 799px)
+    margin: 6px 13px 6px 20px
+    height: 40px
+    width: 40px
+
+  &:hover
+    background-size: 73%
+    background-image: url("img/svg/icon-like-piccola.svg")
+
+  .like-on
+    margin: 6px 16px 7px 32px
+    background-size: 32%
+    background-position: 81% 50%
+    width: 66px
+    height: 29px
+    font-size: 18px
+    font-weight: bold
+    padding-right: 33px
+    border-radius: 20px
+    line-height: 0
+    background-image: url("img/svg/icon-like-piccola.svg")
+
+    &:hover
+      color: rgba(0, 0, 0, 0.5)
+      background-size: 28%
+      background-image: url("img/svg/icon-like-gray-piccola.svg")
+
+    @media (max-width: 799px)
+      margin: 6px 13px 6px 20px
+      width: 80px
+      height: 35px
+      line-height: 2
+
+  .like-di-altri
+    margin: 6px 16px 7px 32px
+    background-size: 32%
+    background-position: 81% 50%
+    width: 66px
+    height: 29px
+    font-size: 18px
+    font-weight: bold
+    padding-right: 33px
+    border-radius: 20px
+    line-height: 0
+    background-image: url("img/svg/icon-like-gray-piccola.svg")
+
+    &:hover
+      background-size: 28%
+      background-image: url("img/svg/icon-like-piccola.svg")
+
+    @media (max-width: 799px)
+      margin: 6px 13px 6px 20px
+      width: 80px
+      height: 35px
+      line-height: 2
+
+.seq .seq-canvas .button-like-post, .seq .seq-canvas .like-on, .seq .seq-canvas .like-off, .seq .seq-canvas .like-di-altri
+  margin-left: 0

@@ -1,0 +1,57 @@
+// importa la libreria
+// documentazione: http://kouto-swiss.io/docs.html
+@import "kouto-swiss"
+
+// reset.css
+meyer-reset()
+// oppure normalize:
+// normalize()
+
+box-sizing-reset()
+
+h1
+  font-size: 2em
+
+h3
+  font-size: 1.7em
+
+h6
+  font-size: 1.3em
+
+.site-content
+  width: 1200px
+
+form
+  width: 60%
+  margin: 0 auto
+  display: block
+  font-size: 1.2em
+
+  div
+    margin: 20px 0
+
+  label.required, input
+    display: block
+    margin: 0 auto
+    clear: both
+
+  label.required
+    text-align: center
+    margin-bottom: 5px
+
+  div#form_birth, select#form_job, button
+    text-align: center
+    display: block
+    margin: 0 auto
+
+  select, input, button
+    padding: 5px 10px
+    border-radius: 7px
+    background-color: #fff
+    border: 1px solid #000
+    outline: none
+
+  button
+    font-size: 1.3em
+@import "header"
+@import "scheletro"

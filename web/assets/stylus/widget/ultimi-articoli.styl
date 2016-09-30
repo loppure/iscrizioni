@@ -1,0 +1,67 @@
+/* widget-ultimi-articoli - widget */
+.ultimi_articoli_mask
+  height: 220px
+  overflow: hidden
+
+  ul
+    padding: 0 0 0 0
+
+  li
+    display: block
+    height: 110px
+
+    &:nth(2n)
+      border-bottom: 1px solid black
+
+.widget_loppure_last_articles
+  float: right
+  max-width: 245px
+  width: 100%
+  height: 280px
+  margin-right: 15px
+  margin-top: 20px
+  padding: 10px 0
+  background-color: #F4F4F4
+  clear: both
+
+  @media (max-width: 719px)
+    max-width: 100%
+    margin: 30px auto 0
+    padding: 10px 0 15px
+
+  .widget-title
+    font-size: 20px
+    font-weight: bold
+    color: rgba(0, 0, 0, 0.5)
+    margin-top: 5px
+
+  .cerchio
+    width: 30px
+    height: 30px
+    float: left
+    margin-right: 10px
+    margin-left: 5px
+    border-radius: 50%
+    background-size: 80%
+
+  li
+    display: block
+    height: 110px
+    padding: 10px 5px 0;
+    border-bottom: 5px solid #DDDDDD;
+
+  h4
+    font-size: 15px
+    margin-bottom: 14px
+
+  h5
+    margin-top: -13px
+    margin-left: 45px
+    font-size: 14.7px
+    font-weight: normal
+
+  a
+  color: rgba(0, 0, 0, 0.5)
+
+  &:hover
+  color: #40484C

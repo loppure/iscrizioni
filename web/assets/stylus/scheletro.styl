@@ -1,0 +1,118 @@
+/* body - scheletro*/
+
+html
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+
+body
+  margin: 0
+  padding: 0
+  background-color: #F4F4F4
+
+html, body
+  min-height: 100%;
+
+article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary
+  display: block
+
+div, section
+  height: auto;
+  display: block;
+  overflow: hidden;
+
+/* page-gray - scheletro*/
+.page-gray
+  clear: both
+  background-color: #DDDDDD
+  padding: 40px 30px
+  margin-top: -145px
+
+  @media (max-width: 519px)
+    margin-top: -120px
+    padding: 20px 10px
+
+  @media (max-width: 959px)
+    padding: 40px 10px
+
+  @media (max-width: 349px)
+    padding: 20px 5px
+
+  div
+    width: 100%
+
+  p
+    width: 100%
+    color: rgba(0, 0, 0, 0.5)
+    text-align: justify
+    padding: 0 20px
+
+/*site-content - scheletro*/
+.site
+  height: 90%
+
+.site-content
+  margin: 0 auto;
+  padding-top: 80px;
+  width: 95%;
+  max-width: 960px;
+  min-height: 100%;
+
+  @media (max-width: 959px)
+    max-width: 100%
+
+  @media (max-width: 719px)
+    max-width: 85%
+
+  @media (max-width: 599px)
+    max-width: 92%
+
+  @media (max-width: 519px)
+    max-width: 100%
+    width: 100%
+
+  @media (max-width: 349px)
+    max-width: 100%
+    width: 100%
+
+/* colonne */
+.page-gray .two_coll-left
+  float: left
+  display: block
+  margin-right: 0.57917%
+  width: 49.71041%
+  float: left
+  width: 48.5%
+
+  &:last-child
+    margin-right: 0
+
+    @media (max-width: 719px)
+      margin-right: 0;
+
+  @media (max-width: 719px)
+    float: left
+    display: block
+    margin-right: 0.57917%
+    width: 100%
+
+.page-gray .two_coll-right
+  float: left
+  display: block
+  margin-right: 0.57917%
+  width: 49.71041%
+  float: right
+  width: 48.5%
+  margin-right: 0
+
+  &:last-child
+    margin-right: 0
+
+    @media (max-width: 719px)
+      margin-right: 0;
+
+  @media (max-width: 719px)
+    float: left
+    display: block
+    margin-right: 0.57917%
+    width: 100%

@@ -1,0 +1,284 @@
+/* single*/
+.single .entry-header
+  padding: 20px 0 6px 95px
+  margin: 15px 0 3px
+
+  h1
+    font-size: 28px
+
+  @media (max-width: 959px)
+    padding: 20px 0 6px 10%
+
+  @media (max-width: 719px)
+    padding: 20px 10px 7px
+    margin-bottom: 10px
+    margin-top: 20px
+
+  @media (max-width: 349px)
+    padding: 20px 10px 5px
+    margin-bottom: 7px
+    margin-top: 15px
+
+.single .post
+  max-width: 100%
+  margin-left: auto
+  margin-right: auto
+  width: 100%
+  padding: 0 20px
+  background-color: transparent
+
+  @media (max-width: 599px)
+    padding: 0 10px
+
+  @media (max-width: 519px)
+    padding: 0
+
+  &::after
+    clear: both
+    content: ""
+    display: table
+
+.single .entry-header
+  margin: 10px 0
+  width: 100%
+  padding: 20px 0 6px 100px
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5)
+
+  h1
+    margin: 0
+    color: black
+
+.single .single-content-wrapper
+  max-width: 100%
+  margin-left: auto
+  margin-right: auto
+
+  &::after
+  clear: both
+  content: ""
+  display: table
+
+.single .entry-primary
+  float: left
+  display: block
+  margin-right: 0.57917%
+  width: 100%
+
+  &:last-child
+    margin-right: 0
+
+  .entry-image
+    width: 67.5%
+    height: 280px
+    position: relative
+    top: 22px
+    z-index: 1
+    -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3)
+    -moz-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3)
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3)
+    background-position: 50% 50%
+    background-size: cover
+    background-repeat: no-repeat
+
+    @media (max-width: 719px)
+      width: 100%
+      top: 0
+      height: 240px
+
+    @media (max-width: 349px)
+      width: 100%
+      position: static
+      height: 180px
+
+  .entry-content-wrapper
+    max-width: 100%
+    margin-left: auto
+    margin-right: auto
+
+    &::after
+      clear: both
+      content: ""
+      display: table
+
+    .text-article
+      width: 100%
+      padding: 0px
+      margin: 0
+      background-color: #F4F4F4
+
+      .content-text
+        float: left
+        display: block
+        margin-right: 0.57917%
+        width: 89.523%
+        float: left
+        margin: 0
+        margin-top: -275px
+        background-color: #DDDDDD
+        padding-bottom: 10px
+
+        @media (max-width: 349px)
+          border: none
+
+        &:last-child
+          margin-right: 0
+
+          @media (max-width: 719px)
+          margin-right: 0
+
+        @media (max-width: 719px)
+          float: left
+          display: block
+          margin-right: 0.57917%
+          width: 100%
+          margin-top: 0
+          border-left: 15px solid #DDDDDD
+          border-right: 15px solid #DDDDDD
+
+        @media (max-width: 519px)
+          border-left: 10px solid #DDDDDD
+          border-right: 10px solid #DDDDDD
+          padding-bottom: 20px
+
+        .text
+          width: 62%
+          float: left
+          margin-top: 280px
+          margin-left: 15px
+          padding: 50px 25px
+          background-color: #F4F4F4
+
+          @media (max-width: 719px)
+            width: 100%
+            margin: 0
+            padding: 20px 25px
+
+          @media (max-width: 349px)
+            width: 100%
+            margin: 0
+            padding: 20px 15px
+
+/*autore*/
+.single .entry-author
+  border-top: 3px solid rgba(0, 0, 0, 0.5)
+  border-bottom: 3px solid rgba(0, 0, 0, 0.5)
+  padding: 30px
+
+  .avatar.photo
+    display: block
+    margin: 0 auto 20px
+    border-radius: 100%
+
+  h4
+    text-align: center
+
+  .author-bio
+    display: block
+    margin: 0 auto
+    width: 60%
+    font-size: 15px
+    text-align: justify
+
+    @media (max-width: 719px)
+    width: 90%;
+
+/*single - social */
+.single .entry-content-wrapper .entry-social
+  float: left
+  display: block
+  margin-right: 0.57917%
+  width: 9.89783%
+  padding-top: 40px
+
+  &:last-child
+    margin-right: 0
+
+    @media (max-width: 719px)
+    margin-right: 0
+
+  @media (max-width: 719px)
+    float: left
+    display: block
+    margin-right: 0.57917%
+    width: 100%
+    padding-top: 10px
+    margin-top: 0
+    padding-bottom: 10px
+
+  @media (max-width: 519px)
+    border-left: 10px solid #DDDDDD;
+    border-right: 10px solid #DDDDDD;
+
+  @media (max-width: 349px)
+    border: none;
+
+  h3
+    text-align: center
+
+    @media (max-width: 719px)
+      margin-top: 15px;
+
+  ul
+    padding: 0 0 0 0
+    margin: 0 auto
+    display: table
+
+    li
+      @media (max-width: 719px)
+      float: left;
+
+  .item
+    display: block
+    width: 45px
+    height: 45px
+    margin: 20px auto
+    border-radius: 100%
+    cursor: pointer
+    background-color: #c4c4c4
+    background-position: 50% 50%
+    background-size: 70%
+    background-repeat: no-repeat
+    font-size: 0.1em
+    color: transparent
+    text-ident: -999
+
+    @media (max-width: 719px)
+      margin: 0 20px;
+
+  .item-facebook
+    background-image: url("img/svg/icon-facebook-piccola.svg")
+
+  .item-twitter
+    background-image: url("img/svg/icon-twitter-piccola.svg")
+
+  .item-googleplus
+    background-image: url("img/svg/icon-googleplus-piccola.svg")
+
+
+
+        /*single social */
+        @media (max-width: 719px) {
+
+
+          .single .entry-content-wrapper .entry-social, .single .entry-content-wrapper .entry-content {
+            float: left;
+            display: block;
+            margin-right: 38.19821%;
+            width: 100%;
+          }
+          .single .entry-content-wrapper .entry-social:last-child, .single .entry-content-wrapper .entry-content:last-child {
+            margin-right: 0;
+          }
+          .single .entry-content-wrapper .entry-social {
+            margin-top: 0;
+            padding-top: 25px;
+            border-left: 15px solid #DDDDDD;
+            border-right: 15px solid #DDDDDD;
+          }
+          .single .entry-content-wrapper .entry-social ul {
+            text-align: center;
+          }
+          .single .entry-content-wrapper .entry-social .item {
+            display: inline-block;
+            margin: 20px;
+          }

@@ -1,0 +1,43 @@
+.scroll_up
+  background-position: center
+  background-repeat: no-repeat
+  background-size: 80%
+  position: fixed
+  right: 10px
+  bottom: 5px
+  width: 50px
+  height: 50px
+  border-radius: 50%
+  background-color: #F4F4F4
+  border: 2px solid #40484C
+  -webkit-transform: translateY(200%)
+  -moz-transform: translateY(200%)
+  -ms-transform: translateY(200%)
+  -o-transform: translateY(200%)
+  transform: translateY(200%)
+  -webkit-transition: transition, 200ms ease-in-out
+  -moz-transition: transition, 200ms ease-in-out
+  transition: transition, 200ms ease-in-out
+  background-image: url("img/svg/up.svg")
+
+  @media (max-width: 719px)
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+
+  span
+    display: block
+    margin: 0 auto
+    text-align: center
+    line-height: 45px
+    color: #40484C
+    font-size: 18px
+    font-weight: bold
+    cursor: pointer
+
+  .show
+  -webkit-transform: translateY(0)
+  -moz-transform: translateY(0)
+  -ms-transform: translateY(0)
+  -o-transform: translateY(0)
+  transform: translateY(0)

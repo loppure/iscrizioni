@@ -1,0 +1,32 @@
+/* widget-rubriche - widget */
+.widget-rubriche
+  @media (max-width: 719px)
+    float: right;
+
+  ul
+    clear: both
+    margin: 0 auto
+    height: 160px
+    overflow-x: visible
+
+    li
+      clear: both
+      text-align: center
+      margin: 0 auto
+      width: 80%
+      padding: 5px 0
+
+      @media (max-width: 519px)
+        padding: 7px 0
+
+      a
+        font-size: 16px
+        text-align: center
+        display: block
+        color: rgba(0, 0, 0, 0.5)
+        padding: 5px 0
+        border-bottom: 2px solid #DDDDDD
+
+        &:hover
+          color: #40484C;
+          border-bottom: 2px solid rgba(0, 0, 0, 0.5)

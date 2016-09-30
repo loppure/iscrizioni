@@ -1,0 +1,54 @@
+/* widget-timeline - widget*/
+
+.timeline
+  background-color: #F4F4F4
+
+  h1
+    font-size: 17px
+    margin-top: 7px
+    font-weight: normal
+    text-align: center
+
+  ul
+    margin-left: 11.5%
+    margin-bottom: 0px
+    margin-top: 10px
+
+
+    @media (max-width: 719px)
+      margin: 0 auto
+      display: block
+      margin-left: -15px
+      margin-top: 20px
+
+    li
+      padding: 5px 0
+
+      @media (max-width: 719px)
+        text-align: center
+
+      @media (max-width: 519px)
+        padding: 7px 0
+
+      a
+        color: rgba(0, 0, 0, 0.5)
+        font-size: 16px
+
+        &:hover
+          color: #40484C
+
+      span.archive-ring
+        display: inline-block
+        width: 12px
+        height: 12px
+        margin: 0 8px
+        border: 2px solid rgba(0, 0, 0, 0.5)
+        border-radius: 100%
+        vertical-align: middle
+
+        .active
+          background-color: rgba(0, 0, 0, 0.5)
+          border: none
+
+  button
+    margin-top: 10px
