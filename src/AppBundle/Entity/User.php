@@ -34,14 +34,6 @@ class User
     private $firstname;
 
     /**
-     * @var String
-     *
-     * @ORM\Column(name="lastname", type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $lastname;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="birth", type="datetime")

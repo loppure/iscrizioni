@@ -33,11 +33,10 @@ class DefaultController extends Controller
         $user = new User();
 
         $form = $this->createFormBuilder($user)
-            ->add('firstname', TextType::class, ['label' => 'Nome'])
-            ->add('lastname', TextType::class, ['label' => 'Cognome'])
+            ->add('firstname', TextType::class, ['label' => 'Nome Cognome'])
             ->add('birth', DateType::class, [
                 'label' => 'Data di nascita',
-                'years' => range(1950, date('Y'))
+                'years' => range(1900, date('Y'))
             ])
             ->add('email', EmailType::class, ['label' => 'Email'])
             ->add('job', ChoiceType::class, [
@@ -48,16 +47,13 @@ class DefaultController extends Controller
                     'Lavoratore'                         => User::LAVORATORE
                 ]
             ])
-            ->add('province', TextType::class, [
-                'label'  => 'Provincia',
+
+            ->add('street', TextType::class, [
+                'label'  => 'Via (e numero civico)',
                 'mapped' => false
             ])
             ->add('city', TextType::class, [
                 'label'  => 'Città',
-                'mapped' => false
-            ])
-            ->add('street', TextType::class, [
-                'label'  => 'Via (e numero civico)',
                 'mapped' => false
             ])
             ->getForm();
@@ -66,9 +62,8 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $address_info = [
-                'province' => $form->get('province')->getData(),
-                'city' => $form->get('city')->getData(),
-                'street' => $form->get('street')->getData()
+                'street' => $form->get('street')->getData(),
+                'city' => $form->get('city')->getData()
             ];
 
             $user->setAddress($address_info);
