@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class IsAdult extends Constraint
 {
-    public $message = "Devi essere maggiorenne";
+    public $message = "Devi essere <b>maggiorenne</b>";
 }

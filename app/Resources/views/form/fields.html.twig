@@ -1,0 +1,11 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+    <ul>
+        {% for error in errors %}
+            <li>{{ error.message|raw }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock form_errors %}
