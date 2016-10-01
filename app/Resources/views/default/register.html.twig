@@ -40,6 +40,7 @@
         dallo Statuto associativo. Titolare del trattamento è il Consiglio Direttivo dell'Associazione "L'oppure".
       </p>
     </div>
+    {{ form_errors(form) }} {# renderizza gli errori! #}
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit">Invia</button>

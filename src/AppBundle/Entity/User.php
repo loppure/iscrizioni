@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * @author Omar Polo <yum1096@gmail.com>
@@ -38,6 +39,7 @@ class User
      *
      * @ORM\Column(name="birth", type="datetime")
      * @Assert\NotBlank()
+     * @AppAssert\IsAdult()
      */
     private $birth;
 
