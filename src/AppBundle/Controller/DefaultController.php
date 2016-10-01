@@ -36,7 +36,7 @@ class DefaultController extends Controller
             ->add('firstname', TextType::class, ['label' => 'Nome Cognome'])
             ->add('birth', DateType::class, [
                 'label' => 'Data di nascita',
-                'years' => range(1900, date('Y'))
+                'years' => range(date('Y'), 1900)
             ])
             ->add('email', EmailType::class, ['label' => 'Email'])
             ->add('job', ChoiceType::class, [
