@@ -50,7 +50,7 @@ class DefaultController extends Controller
 
 
             ->add('street', TextType::class, [
-                'label'  => 'Via (e numero civico)',
+                'label'  => 'Indirizzo',
                 'mapped' => false
             ])
             ->add('city', TextType::class, [

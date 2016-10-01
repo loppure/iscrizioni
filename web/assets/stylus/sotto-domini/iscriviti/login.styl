@@ -1,4 +1,4 @@
-/* sotto-dominio > iscriviti > scheletro */
+/* sotto-dominio > iscriviti > login */
 
 .content-login
   width: 350px
@@ -7,12 +7,13 @@
   margin-top: -50px
   margin-bottom: 3rem
   padding: 40px 20px
+  text-align: center
   background-color:#fff
-  -webkit-box-shadow: $ombra-normale
-  -moz-box-shadow: $ombra-normale
-  box-shadow: $ombra-normale
+  -webkit-box-shadow: ombra-normale
+  -moz-box-shadow: ombra-normale
+  box-shadow: ombra-normale
 
-  @media (max-width: $min)
+  @media (max-width: min)
     width: 90%
 
   input[type="password"], input[type="text"]
@@ -39,13 +40,15 @@
     display: block;
     text-align: center
     font-size: 0.9rem
-
-    &:last-child
-      font-size: 0.7rem
+    color: grigio-scuro
 
   form
     width: 100%
     padding: 20px 30px
+
+  .button
+    font-size: 0.9rem
+    padding: 3px 7px
 
 .error
   width: 350px;
@@ -55,11 +58,11 @@
   margin-top: -110px
   margin-bottom: 62px
   background-color: red /* rivedere */
-  -webkit-box-shadow: $ombra-normale
-  -moz-box-shadow: $ombra-normale
-  box-shadow: $ombra-normale
+  -webkit-box-shadow: ombra-normale
+  -moz-box-shadow: ombra-normale
+  box-shadow: ombra-normale
 
-  @media (max-width: $min)
+  @media (max-width: min)
     width: 90%
 
   h4
@@ -72,5 +75,5 @@
   span
     display: block
     text-align: center
-    font-size: 0.7rem
+    font-size: 0.9rem
     color: #fff

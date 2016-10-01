@@ -7,8 +7,7 @@
     {% if error %}
         <div class="error">
             <h4>Dati di acesso errati</h4>
-            <span>Riprova! Per qualsiasi problema nell'accesso clicca
-              <a href="mailto:assistenza@loppure.it?Subject=Problemi%20acessi%20sezione%20iscriviti">assistenza</a>.
+            <span>Riprova! Per qualsiasi problema nell'accesso clicca su assistenza.</span>
         </div>
     {% endif %}
 <div class="content-login">
@@ -21,10 +20,11 @@
           <label for="password">Password:</label>
           <input type="password" id="password" name="_password" />
 
-          <button type="submit">login</button>
+          <button type="submit">Accedi</button>
       </form>
-    <span> Ti sei dimenticato gli accessi, non preoccuparti clicca
-      <a href="mailto:assistenza@loppure.it?Subject=Problemi%20acessi%20sezione%20iscriviti">assistenza</a>.
-    </span>
+    <span> Ti sei dimenticato gli accessi, non preoccuparti clicca su assistenza.</span>
+  <a class="button" href="mailto:assistenza@loppure.it?Subject=Problemi%20acessi%20sezione%20iscriviti" title="Bottone assistenza">
+    assistenza
+  </a>
 </div>
 {% endblock %}
