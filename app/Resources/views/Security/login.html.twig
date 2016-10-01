@@ -6,18 +6,25 @@
 
     {% if error %}
         <div class="error">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
+            <h4>Dati di acesso errati</h4>
+            <span>Riprova! Per qualsiasi problema nell'accesso clicca
+              <a href="mailto:assistenza@loppure.it?Subject=Problemi%20acessi%20sezione%20iscriviti">assistenza</a>.
         </div>
     {% endif %}
+<div class="content-login">
+  <h4>Login pagina iscriviti</h4>
+    <span>Login riservato ai componenti de L'oppure</span>
+      <form action="{{ path('login') }}" method="post" accept-charset="utf-8">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-    <form action="{{ path('login') }}" method="post" accept-charset="utf-8">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="_password" />
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" />
-
-        <button type="submit">login</button>
-    </form>
-
+          <button type="submit">login</button>
+      </form>
+    <span> Ti sei dimenticato gli accessi, non preoccuparti clicca
+      <a href="mailto:assistenza@loppure.it?Subject=Problemi%20acessi%20sezione%20iscriviti">assistenza</a>.
+    </span>
+</div>
 {% endblock %}

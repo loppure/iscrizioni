@@ -46,6 +46,27 @@
     text-align: center
     font-size: 18px
 
+/* card team */
+.content-people-card .icon-team
+  width: 35px
+  height: 35px
+  background-color: #F4F4F4
+  margin: 0 auto
+  position: relative
+  left: -50px
+  top: 9px
+  border-radius: 50%
+
+.content-people-card .spoiler h3
+  font-size: 18px
+  font-weight: normal
+  text-align: center
+  cursor: pointer
+  padding-bottom: 15px
+
+.content-people-card .open h3
+  border-bottom: none
+
 /* card rubriche */
 .card-page .icon-rubriche
   width: 50px
@@ -59,152 +80,198 @@
 
 /* capire che cosa sono - card*/
 
-.sticky {
-  display: block;
-}
+.sticky
+  display: block
 
-.hentry {
-  margin: 0 0 1.5em;
-}
+.hentry
+  margin: 0 0 1.5em
 
-.byline,
-.updated:not(.published) {
-  display: none;
-}
+.byline, .updated:not(.published)
+  display: none
 
-.single .byline,
-.group-blog .byline {
-  display: inline;
-}
+.single .byline, .group-blog .byline
+  display: inline
 
-.page-content,
-.entry-content,
-.entry-summary {
-  margin: 1.5em 0 0;
-}
+.page-content, .entry-content, .entry-summary
+  margin: 1.5em 0 0
 
-.page-links {
-  clear: both;
-  margin: 0 0 1.5em;
-}
+.page-links
+  clear: both
+  margin: 0 0 1.5em
 
-.section-cont-article article {
-  max-width: 450px;
-  width: 100%;
-  margin: 0 auto;
-  background-color: #F4F4F4;
-  margin-bottom: 30px;
-  cursor: pointer;
-}
-.section-cont-article article header {
-  padding: 10px 30px;
-}
-@media (max-width: 959px) {
-  .section-cont-article article header {
-    padding: 10px 20px;
-  }
-}
-.section-cont-article article header .text-header-post {
-  margin-left: 58px;
-  margin-top: 4px;
-  width: 70%;
-}
-.section-cont-article article header .text-header-post a {
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 18px;
-  margin-top: -10px;
-  font-weight: bold;
-}
-.section-cont-article article header .text-header-post .date-post {
-  font-size: 14px;
-  position: relative;
-  font-size: 15px;
-  top: -5px;
-  color: rgba(0, 0, 0, 0.5);
-}
-.section-cont-article article header .img-category-post, .section-cont-article article header .img-article-post {
-  background-size: 75%;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  float: left;
-}
-.section-cont-article article header .img-article-post {
-  background-color: #F4F4F4;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  float: right;
-}
-.section-cont-article article section {
-  clear: both;
-}
-.section-cont-article article section p {
-  max-height: 150px;
-  height: auto;
-  color: black;
-  font-size: 14.7px;
-  padding: 10px 40px 0;
-  margin: 0;
-  margin-bottom: 10px;
-}
-@media (max-width: 959px) {
-  .section-cont-article article section p {
-    padding: 10px 28px 0;
-  }
-}
-.section-cont-article article section .content-article-post {
-  border: 12px solid #DDDDDD;
-  border-top: 4px solid #DDDDDD;
-  border-bottom: 6px solid #DDDDDD;
-}
-@media (max-width: 519px) {
-  .section-cont-article article section .content-article-post {
-    border: none;
-    border-top: 4px solid #DDDDDD;
-    border-bottom: 6px solid #DDDDDD;
-  }
-}
-.section-cont-article article section .title-article-post {
-  max-height: 75px;
-}
-.section-cont-article article section .title-article-post h3 {
-  margin: 0;
-  margin-left: 10px;
-  padding: 15px 5px;
-}
+.section-cont-article article
+  max-width: 450px
+  width: 100%
+  margin: 0 auto
+  background-color: #F4F4F4
+  margin-bottom: 30px
+  cursor: pointer
+
+  header
+    padding: 10px 30px
+
+    @media (max-width: 959px)
+      padding: 10px 20px
+
+    .text-header-post
+      margin-left: 58px
+      margin-top: 4px
+      width: 70%
+
+      a
+        color: rgba(0, 0, 0, 0.5)
+        font-size: 18px
+        margin-top: -10px
+        font-weight: bold
+
+      .date-post
+        font-size: 14px
+        position: relative
+        font-size: 15px
+        top: -5px
+        color: rgba(0, 0, 0, 0.5)
+
+.section-cont-article article header .img-category-post, .section-cont-article article header .img-article-post
+  background-size: 75%
+  background-repeat: no-repeat
+  background-position: center
+  width: 50px
+  height: 50px
+  border-radius: 50%
+  float: left
+
+.section-cont-article article header .img-article-post
+  background-color: #F4F4F4
+  border: 1px solid rgba(0, 0, 0, 0.5)
+  float: right
+
+.section-cont-article article section
+  clear: both
+
+  p
+    max-height: 150px
+    height: auto
+    color: black
+    font-size: 14.7px
+    padding: 10px 40px 0
+    margin: 0
+    margin-bottom: 10px
+
+    @media (max-width: 959px)
+      padding: 10px 28px 0;
+
+  .content-article-post
+    border: 12px solid #DDDDDD
+    border-top: 4px solid #DDDDDD
+    border-bottom: 6px solid #DDDDDD
+
+    @media (max-width: 519px)
+      border: none
+      border-top: 4px solid #DDDDDD
+      border-bottom: 6px solid #DDDDDD
+
+.section-cont-article article section .title-article-post
+  max-height: 75px
+
+  h3
+    margin: 0
+    margin-left: 10px
+    padding: 15px 5px
+
 .section-cont-article article section .title-article-post .cicle-color-category-post, .section-cont-article article section .title-article-post .category-friuli-eat .img-category-post.friuli-eat, .category-friuli-eat .section-cont-article article section .title-article-post .img-category-post.friuli-eat, .category-friuli-eat .section-cont-article article section .title-article-post header .friuli-eat.img-article-post, .category-friuli-eat .section-cont-article article header section .title-article-post .friuli-eat.img-article-post, .section-cont-article article section .title-article-post header .category-friuli-eat .friuli-eat.img-article-post, .section-cont-article article header .category-friuli-eat section .title-article-post .friuli-eat.img-article-post, .section-cont-article article section .title-article-post .category-friuli-eat .cerchio-logo-page, .category-friuli-eat .section-cont-article article section .title-article-post .cerchio-logo-page, .section-cont-article article section .title-article-post .category-book-life .img-category-post.book-life, .category-book-life .section-cont-article article section .title-article-post .img-category-post.book-life, .category-book-life .section-cont-article article section .title-article-post header .book-life.img-article-post, .category-book-life .section-cont-article article header section .title-article-post .book-life.img-article-post, .section-cont-article article section .title-article-post header .category-book-life .book-life.img-article-post, .section-cont-article article header .category-book-life section .title-article-post .book-life.img-article-post, .section-cont-article article section .title-article-post .category-book-life .cerchio-logo-page, .category-book-life .section-cont-article article section .title-article-post .cerchio-logo-page, .section-cont-article article section .title-article-post .category-voli-sul-territorio .img-category-post.voli-sul-territorio, .category-voli-sul-territorio .section-cont-article article section .title-article-post .img-category-post.voli-sul-territorio, .category-voli-sul-territorio .section-cont-article article section .title-article-post header .voli-sul-territorio.img-article-post, .category-voli-sul-territorio .section-cont-article article header section .title-article-post .voli-sul-territorio.img-article-post, .section-cont-article article section .title-article-post header .category-voli-sul-territorio .voli-sul-territorio.img-article-post, .section-cont-article article header .category-voli-sul-territorio section .title-article-post .voli-sul-territorio.img-article-post, .section-cont-article article section .title-article-post .category-voli-sul-territorio .cerchio-logo-page, .category-voli-sul-territorio .section-cont-article article section .title-article-post .cerchio-logo-page, .section-cont-article article section .title-article-post .category-pausa-caffe .img-category-post.pausa-caffe, .category-pausa-caffe .section-cont-article article section .title-article-post .img-category-post.pausa-caffe, .category-pausa-caffe .section-cont-article article section .title-article-post header .pausa-caffe.img-article-post, .category-pausa-caffe .section-cont-article article header section .title-article-post .pausa-caffe.img-article-post, .section-cont-article article section .title-article-post header .category-pausa-caffe .pausa-caffe.img-article-post, .section-cont-article article header .category-pausa-caffe section .title-article-post .pausa-caffe.img-article-post, .section-cont-article article section .title-article-post .category-pausa-caffe .cerchio-logo-page, .category-pausa-caffe .section-cont-article article section .title-article-post .cerchio-logo-page, .section-cont-article article section .title-article-post .category-cultura .img-category-post.cultura, .category-cultura .section-cont-article article section .title-article-post .img-category-post.cultura, .category-cultura .section-cont-article article section .title-article-post header .cultura.img-article-post, .category-cultura .section-cont-article article header section .title-article-post .cultura.img-article-post, .section-cont-article article section .title-article-post header .category-cultura .cultura.img-article-post, .section-cont-article article header .category-cultura section .title-article-post .cultura.img-article-post, .section-cont-article article section .title-article-post .category-cultura .cerchio-logo-page, .category-cultura .section-cont-article article section .title-article-post .cerchio-logo-page, .section-cont-article article section .title-article-post .category-storia .img-category-post.storia, .category-storia .section-cont-article article section .title-article-post .img-category-post.storia, .category-storia .section-cont-article article section .title-article-post header .storia.img-article-post, .category-storia .section-cont-article article header section .title-article-post .storia.img-article-post, .section-cont-article article section .title-article-post header .category-storia .storia.img-article-post, .section-cont-article article header .category-storia section .title-article-post .storia.img-article-post, .section-cont-article article section .title-article-post .category-storia .cerchio-logo-page, .category-storia .section-cont-article article section .title-article-post .cerchio-logo-page, .section-cont-article article section .title-article-post .category-eventi .img-category-post.eventi, .category-eventi .section-cont-article article section .title-article-post .img-category-post.eventi, .category-eventi .section-cont-article article section .title-article-post header .eventi.img-article-post, .category-eventi .section-cont-article article header section .title-article-post .eventi.img-article-post, .section-cont-article article section .title-article-post header .category-eventi .eventi.img-article-post, .section-cont-article article header .category-eventi section .title-article-post .eventi.img-article-post, .section-cont-article article section .title-article-post .category-eventi .cerchio-logo-page, .category-eventi .section-cont-article article section .title-article-post .cerchio-logo-page, .section-cont-article article section .title-article-post .category-pordenonelegge header .img-category-post, .section-cont-article .category-pordenonelegge header article section .title-article-post .img-category-post, .section-cont-article .category-pordenonelegge article section .title-article-post header .img-article-post, .section-cont-article .category-pordenonelegge article header section .title-article-post .img-article-post, .section-cont-article article section .title-article-post .category-pordenonelegge header .img-article-post, .section-cont-article article .category-pordenonelegge header section .title-article-post .img-article-post {
-  height: 20px;
-  width: 20px;
-  margin: 15px 10px 20px 17px;
-  float: left;
-  border-radius: 50%;
-}
-.section-cont-article article section span.link.more {
-  margin: 0 3px;
-  padding: 1px 5px;
-  border: 1px solid #DDDDDD;
-  border-radius: 5px;
-}
-.section-cont-article article footer {
-  height: 49px;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.5);
-  cursor: default;
-}
+  height: 20px
+  width: 20px
+  margin: 15px 10px 20px 17px
+  float: left
+  border-radius: 50%
+
+/* read more */
+.section-cont-article article section span.link.more
+  margin: 0 3px
+  padding: 1px 5px
+  border: 1px solid #DDDDDD
+  border-radius: 5px
+
+.section-cont-article article footer
+  height: 49px
+  border-bottom: 5px solid rgba(0, 0, 0, 0.5)
+  cursor: default
 
 
-/* card-overlay-image*/
-.loppure_image, .post {
-  width: 450px;
-  background-color: #F4F4F4;
-}
-.loppure_image figure, .post figure {
-  margin: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.loppure_image .img-post, .post .img-post {
-  height: 200px;
-  width: 100%;
-}
+/* capire dove va*/
+
+.content
+  max-width: 100%
+  margin-left: auto
+  margin-right: auto
+
+  &::after
+    clear: both
+    content: ""
+    display: table
+
+  .widget-card
+    padding: 25px 10px
+    margin: 10px 0
+    background-color: #F4F4F4
+    height: 475px
+
+    &:nth-child(2n+1)
+      float: left
+      display: block
+      margin-right: 0.57917%
+      width: 47.61501%
+      float: left
+
+      @media (max-width: 719px)
+        float: left
+        display: block
+        margin-right: 0.57917%
+        width: 100%
+
+      &:last-child
+        margin-right: 0
+
+        @media (max-width: 719px)
+          margin-right: 0
+
+    &:nth-child(2n)
+      float: left
+      display: block
+      margin-right: 0.57917%
+      width: 47.61501%
+      float: right
+
+      @media (max-width: 719px)
+        float: left
+        display: block
+        margin-right: 0.57917%
+        width: 100%
+
+      &:last-child
+        margin-right: 0
+
+        @media (max-width: 719px)
+          margin-right: 0
+
+.content .widget-card
+  @media (max-width: 799px)
+    height: 525px
+
+  @media (max-width: 719px)
+    padding: 20px 5px
+    height: auto
+    overflow: hidden
+
+  img
+    width: 90px
+    height: 90px
+    margin: 0 auto
+    display: block
+    border-radius: 50%
+    padding: 5px
+    border: 2px solid #DDDDDD
+
+  h3
+    text-align: center
+    margin-top: 10px
