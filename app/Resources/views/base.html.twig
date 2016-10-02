@@ -11,8 +11,11 @@
     <body>
       <div class="site-content">
         {% include '::header.html.twig' %}
-        {% block body %}{% endblock %}
+          <section class="page-gray">
+            {% block body %}{% endblock %}
+          </section>
         {% block javascripts %}{% endblock %}
       </div>
+      {% include '::footer.html.twig' %}
     </body>
 </html>

@@ -1,25 +1,60 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Entra dentro L'oppure</h1>
-    <h6>iscrizione per diventare socio dell'associazione</h6>
 
-    <div class="contenitor-presentazione">
-      
-    </div>
+  <section class="content-presentazione">
+      <div class="blocchi-dati-4">
+        <span>Operiamo nelle seguenti città</span>
+          <ul>
+            <li>Pordenone</li>
+            <li>Udine</li>
+            <li>Trieste</li>
+            <li>Gorizia</li>
+          </ul>
+      </div>
+
+      <div class="blocchi-dati-4">
+        <span>Siamo in</span>
+        <span>70</span>
+        <span>persone</span>
+      </div>
+
+      <div class="blocchi-dati-4">
+        <span>Cosa facciamo</span>
+          <ul>
+            <li>Raccontiamo</li>
+            <li>Prommuoviamo</li>
+            <li>Diffondiamo</li>
+            <li>Valorizziamo</li>
+          </ul>
+      </div>
+
+      <div class="blocchi-dati-4">
+        <span>Siamo nati il</span>
+        <span>20 giugno 2014</span>
+      </div>
 
     <div>
-      <p>
-        Il presente modulo costituisce domanda di iscrizione all'Associazione Culturale "L'oppure". <br/>
-        I dati personali e sensibili saranno trattati nel rispetto del d.lgs. 196/03, per gli scopi previsti
-        dallo Statuto associativo. Titolare del trattamento è il Consiglio Direttivo dell'Associazione "L'oppure".
-      </p>
+      <span>Se vuoi conoscere meglio l'associazione L'oppure scaricati il documento di presentazione</span>
+      <a class="button" href="#" title="Scarica il document di presentazione">Approfondisci</a>
     </div>
-    {% form_theme form 'form/fields.html.twig' %}
+  </section>
 
-    {{ form_errors(form) }} {# renderizza gli errori! #}
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Invia</button>
-    {{ form_end(form) }}
+    <section class="content-form">
+      <h2>Ti vuoi unire a L'oppure?</h2>
+        <div>
+          <p>
+            Il presente modulo costituisce domanda di iscrizione all'Associazione Culturale "L'oppure". <br/>
+            I dati personali e sensibili saranno trattati nel rispetto del d.lgs. 196/03, per gli scopi previsti
+            dallo Statuto associativo. Titolare del trattamento è il Consiglio Direttivo dell'Associazione "L'oppure".
+          </p>
+        </div>
+      {% form_theme form 'form/fields.html.twig' %}
+
+      {{ form_errors(form) }} {# renderizza gli errori! #}
+      {{ form_start(form) }}
+          {{ form_widget(form) }}
+          <button type="submit">Invia</button>
+      {{ form_end(form) }}
+    </section>
 {% endblock %}

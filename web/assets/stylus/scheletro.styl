@@ -24,22 +24,19 @@ div, section
 /* page-gray - scheletro*/
 .page-gray
   clear: both
-  background-color: #DDDDDD
+  background-color: grigio-intermedio
   padding: 40px 30px
   margin-top: -145px
 
-  @media (max-width: 519px)
+  @media (max-width: max)
+    padding: 40px 10px
+
+  @media (max-width: 519px) /*da capire */
     margin-top: -120px
     padding: 20px 10px
 
-  @media (max-width: 959px)
-    padding: 40px 10px
-
   @media (max-width: 349px)
     padding: 20px 5px
-
-  div
-    width: 100%
 
   p
     width: 100%
@@ -47,33 +44,38 @@ div, section
     text-align: justify
     padding: 0 20px
 
+/*blocchi - scheletro */
+.blocchi-dati-4
+  width: 23%
+  height: 200px
+  float: left
+  margin: 0 1%
+  margin-top: 2rem
+  margin-bottom: 2rem
+  background-color: #fff
+  -webkit-box-shadow: ombra-normale
+  -moz-box-shadow: ombra-normale
+  box-shadow: ombra-normale
+
 /*site-content - scheletro*/
 .site
   height: 90%
 
 .site-content
-  margin: 0 auto;
-  padding-top: 80px;
-  width: 95%;
-  max-width: 960px;
-  min-height: 100%;
+  margin: 0 auto
+  padding-top: 80px
+  width: 100%
+  max-width: 1200px
+  min-height: 100%
 
-  @media (max-width: 959px)
+  @media (max-width: max)
+    width: 95%
     max-width: 100%
 
-  @media (max-width: 719px)
-    max-width: 85%
-
-  @media (max-width: 599px)
-    max-width: 92%
-
-  @media (max-width: 519px)
-    max-width: 100%
+  @media (max-width: medium)
     width: 100%
-
-  @media (max-width: 349px)
     max-width: 100%
-    width: 100%
+
 
 /* colonne */
 .page-gray .two_coll-left

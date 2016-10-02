@@ -1,10 +1,29 @@
 /* elementi > form */
-form
-  width: 60%
+.content-form
+  width: 640px
+  display: block
   margin: 0 auto
+  margin-top: -50px
+  margin-bottom: 3rem
+  text-align: center
+  background-color:#fff
+  -webkit-box-shadow: ombra-normale
+  -moz-box-shadow: ombra-normale
+  box-shadow: ombra-normale
+
+  @media (max-width: mini-tablet)
+    width: 95%
+
+form
+  width: 300px
+  margin: 0 auto
+  padding: 20px 15px
   display: block
   text-align: center
-  font-size: 1.2em
+  font-size: 1.2rem
+
+  button
+    font-size: 1.2rem
 
 label
   display: block
@@ -13,28 +32,31 @@ label
   padding: 5px 10px
   clear: both
   font-family: "Roboto", "Arial", sans-serif
-  font-size: 0.9rem
+  font-size: 1rem
   text-align: center
   outline: none
 
 input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea, select[multiple=multiple], textarea
-  background-color: grigio-medio
-  border: 2px solid grigio-medio
-  border-radius: 10px
+  background-color: grigio-intermedio
+  border: 0.12rem solid grigio-intermedio
+  border-radius: 0.38rem
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
   box-sizing: border-box
-  font-size: 0.8em
-  margin-bottom: 0.75em
-  padding: 0.5em
+  font-size: 1rem
+  margin-bottom: 0.75rem
+  padding: 0.5rem
+  -webkit-transition: border-color
   transition: border-color
   width: 100%
-  color: rgba(0, 0, 0, 0.5)
+  color: #000
 
 input[type="color"]:hover, input[type="date"]:hover, input[type="datetime"]:hover, input[type="datetime-local"]:hover, input[type="email"]:hover, input[type="month"]:hover, input[type="number"]:hover, input[type="password"]:hover, input[type="search"]:hover, input[type="tel"]:hover, input[type="text"]:hover, input[type="time"]:hover, input[type="url"]:hover, input[type="week"]:hover, textarea:hover, select[multiple=multiple]:hover,textarea:hover
-  border-color: rgba(0, 0, 0, 0.5)
+  border: 0.12rem solid colore-loppure
 
 input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, textarea:focus, select[multiple=multiple]:focus, textarea:focus
-  border-color: #DDDDDD
-  background-color: #F4F4F4
+  border: 0.12rem solid colore-loppure
+  background-color: #fff
   outline: none
 
 textarea
@@ -49,57 +71,35 @@ input[type="search"]
 
 input[type="checkbox"], input[type="radio"]
   display: inline
-  margin-right: 0.375em
+  margin-right: .375em
 
 input[type="file"]
-  padding-bottom: 0.75em
+  padding-bottom: .75em
   width: 100%
 
-
 select
-  background-color: white
-  border: 1.5px solid colore-loppure
-  border-radius: 7px
   display: inline-block
-  line-height: 1.5em
-  padding: 0.5em 3.5em 0.5em 1em
+  margin: 0
+  margin-bottom: .75rem
+  padding: .4rem 1.6rem .4rem .4rem
+  color: #000
+  background-color: #fff
+  border: 0.12rem solid colore-loppure
+  border-radius: 0.38rem
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  -webkit-appearance: none
+  -moz-appearance: none
 
-  margin: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  &:nth-child(2)
+    margin: 0 .7rem
 
-  background-image:
-    linear-gradient(45deg, white 50%, transparent 50%),
-    linear-gradient(135deg, transparent 50%, white 50%),
-    linear-gradient(to right, gray, gray);
-  background-position:
-    calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px),
-    100% 0;
-  background-size:
-    5px 5px,
-    5px 5px,
-    2.5em 2.5em;
-  background-repeat: no-repeat;
+  &#form_job
+    margin: 0
+    margin-bottom: .75rem
 
-
-select:focus {
-  background-image:
-    linear-gradient(45deg, white 50%, transparent 50%),
-    linear-gradient(135deg, transparent 50%, white 50%),
-    linear-gradient(to right, gray, gray);
-  background-position:
-    calc(100% - 15px) 1em,
-    calc(100% - 20px) 1em,
-    100% 0;
-  background-size:
-    5px 5px,
-    5px 5px,
-    2.5em 2.5em;
-  background-repeat: no-repeat;
-  border-color: grey;
-  outline: 0;
-}
+select:focus
+  border: 0.12rem solid colore-loppure
+  background-color: grigio-chiaro
+  outline: none

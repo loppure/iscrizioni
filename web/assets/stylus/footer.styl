@@ -1,65 +1,68 @@
 .site-footer
-  display: table
-  height: 150px
   width: 100%
-  background-color: #40484C
+  display: block
+  padding: 2rem 1rem
+  background-color: colore-loppure
   color: #fff
-  padding-top: 10px
+  font-size: 0.9rem
 
   &> *
     display: table-cell
     vertical-align: middle
 
-  .textwidget
-    width: 33.3333%
-    float: left
-    padding: 0 7px
-    text-align: center
-    margin-top: 20px
+  .content-footer
+    max-width: 1200px
+    display: block
+    margin: 0 auto
 
-    @media (max-width: 519px)
+    @media (max-width: max)
       width: 100%
-      float: none
-      clear: both
-
-    .elenco-sezioni
-      margin: 0 auto
-
-      ul
-        margin: 0 auto
-
-        li
-          padding: 5px 0px
-
-          &:last-child a
-            border: none
-            line-height: 2.5
-
-          a
-            border-bottom: 1px solid #F4F4F4
-            padding: 5px 20px
-            margin-top: 5px
-
-  .copyright-footer
-    padding-top: 10px
 
   a
-    color: #F4F4F4
-    font-weight: bold
+    color: grigio-intermedio
+    border-bottom: .1rem solid colore-loppure
 
     &:hover
-      color: rgba(0, 0, 0, 0.5)
+      color: grigio-intermedio
+      border-bottom: .1rem solid grigio-intermedio
 
-    p
-      margin: 0 auto
-      display: block
-      text-align: center
-      color: #fff
+  p
+    margin: 0 auto
+    display: block
+    font-size: 0.9rem
+    color: #fff
 
-.border-right
-  padding-right: 6px
-  border-right: 2px solid #F4F4F4
+  span
+    font-size: 1.1rem
 
+  .footer-documenti
+    text-align: right
+
+  .footer-contatti
+    text-align: left
+
+  .footer-liste
+    ul
+      margin-bottom: 2rem
+
+    li
+      float: left
+      margin: 0rem .6rem
+      font-size: 0.8rem
+      list-style-type: disc
+
+/*col footer -footer */
+.col-footer-4
+  width: 24.5%
+  float: left
+  padding: 1.5rem 1rem
+  border-right: .12rem solid grigio-scuro
+
+  &:last-child
+    border: none
+
+
+/*social - footer*/
 .footer-social
   height: 40px
   width: 40px
@@ -69,7 +72,6 @@
   background-size: 65%
   background-position: center
 
-/*social - footer*/
   .list-social
     width: 40px
     height: 40px
