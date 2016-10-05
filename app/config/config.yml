@@ -76,5 +76,9 @@ payum:
     gateways:
         offline:
             factory: 'offline'
-        # paypal_express_checkout:
-        #     factory: 'paypal_express_checkout'
+        paypal_express_checkout:
+          factory: 'paypal_express_checkout'
+          username:  "%paypal.express_checkout.username%"
+          password:  "%paypal.express_checkout.password%"
+          signature: "%paypal.express_checkout.signature%"
+          sandbox: true

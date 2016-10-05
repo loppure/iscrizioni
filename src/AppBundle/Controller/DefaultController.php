@@ -89,7 +89,7 @@ class DefaultController extends Controller
 
     private function paymentAction(User $user)
     {
-        $gatewayName = "offline";
+        $gatewayName = "paypal_express_checkout";
         $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
 
         $job = $user->getJobInt();
