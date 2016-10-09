@@ -16,17 +16,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     * @Template("default/index.html.twig")
-     */
-    public function indexAction(Request $request)
-    {
-        return array();
-    }
 
     /**
-     * @Route("/register", name="register")
+     * @Route("/", name="register")
      * @Template("default/register.html.twig")
      */
     public function registerAction(Request $request)
