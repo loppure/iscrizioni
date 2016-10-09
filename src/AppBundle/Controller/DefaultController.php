@@ -96,9 +96,10 @@ class DefaultController extends Controller
         $payment = $storage->create();
         $payment->setNumber(uniqid());
         $payment->setCurrencyCode('EUR');
-        $payment->setTotalAmount($amount); //
-        $payment->setDescription('A description'); //
-        $payment->setClientEmail($user->getEmail()); //
+        $payment->setTotalAmount($amount);
+        $payment->setDescription('A description');
+        $payment->setClientEmail($user->getEmail());
+        $payment->setLoppureUser($user);
 
         $storage->update($payment);
 
@@ -117,20 +118,52 @@ class DefaultController extends Controller
      */
     public function thanksAction(Request $request)
     {
-        $token = $this->get('payum')->getHttpRequestVerifier()->verify($request);
-        $gateway = $this->get('payum')->getGateway($token->getGatewayname());
+        try {
+            $token = $this->get('payum')->getHttpRequestVerifier()->verify($request);
+            $gateway = $this->get('payum')->getGateway($token->getGatewayname());
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'error',
+                'Si è verificato un errore durante la transazione'
+            );
+            return $this->redirectToRoute('register');
+        }
 
         // remainder: invalidate with `$this->get('payum')->getHttpRequestVerifier()->invalidate($token)`
+        /* $this->get('payum')->getHttpRequestVerifier()->invalidate($token); */
 
         $gateway->execute($status = new GetHumanStatus($token));
         $payment = $status->getFirstModel();
+
+        // get user
+        $user = $payment->getLoppureUser();
+        $em = $this->getDoctrine()->getManager();
+
+        // if the payment was unseccessful...
+        if ($status->getValue() == "failed" || !$payment->getDetails()['paid']) {
+            // delete user:
+            $em->remove($user);
+            $em->flush();
+            $this->addFlash(
+                'error',
+                'Il pagamento non è andato a buon fine!'
+            );
+            return $this->redirectToRoute('register');
+        }
+
+        // save the user!
+        $user->setHasPayed(true);
+        $user->setUpdatedAt(new \Datetime());
+
+        $em->flush();
 
         return array(
             'status' => $status->getValue(),
             'payment' => [
                 'total_amount' => $payment->getTotalAmount(),
                 'currency_code' => $payment->getCurrencyCode(),
-                'details' => $payment->getDetails()
+                'details' => $payment->getDetails(),
+                'payment' => $payment
             ]
         );
     }
