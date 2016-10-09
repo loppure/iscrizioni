@@ -252,4 +252,14 @@ class User
                 break;
         }
     }
+
+    /**
+     * Get job int
+     *
+     * @return int
+     */
+    public function getJobInt()
+    {
+        return $this->job;
+    }
 }

@@ -62,7 +62,6 @@ class User
      * @var Array
      *
      * @ORM\Column(name="address", type="json_array")
-     * @Assert\NotBlank()
      */
     private $address;
 
@@ -129,6 +128,16 @@ class User
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+     * Get Full name
+     *
+     * @return String
+     */
+    public function getFullName()
+    {
+        return $this->firstname . " " . $this->lastname;
     }
 
     /**
@@ -204,6 +213,16 @@ class User
     }
 
     /**
+     * Get address string
+     *
+     * @return string
+     */
+    public function getAddressString()
+    {
+        return implode(', ', $this->address);
+    }
+
+    /**
      * Set job
      *
      * @param string $job
@@ -223,6 +242,28 @@ class User
      * @return string
      */
     public function getJob()
+    {
+        switch ($this->job) {
+            case self::SUPERIORI:
+                return 'Studente (superiori)';
+                break;
+
+            case self::UNIVERSITA:
+                return 'Studente (università)';
+                break;
+
+            case self::UNIVERSITA:
+                return 'Lavoratore';
+                break;
+        }
+    }
+
+    /**
+     * Get job int
+     *
+     * @return int
+     */
+    public function getJobInt()
     {
         return $this->job;
     }
