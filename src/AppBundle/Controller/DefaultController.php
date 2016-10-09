@@ -92,12 +92,12 @@ class DefaultController extends Controller
 
         switch ($user->getJobInt()) {
         case User::SUPERIORI:
-            $amount = 5;
+            $amount = 100;
             break;
         case User::UNIVERSITA:
-            $amount = 10;
+            $amount = 1000;
         default:
-            $amount = 20;
+            $amount = 2000;
             break;
         }
 
