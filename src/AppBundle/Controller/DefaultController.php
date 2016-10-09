@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class DefaultController extends Controller
 {
@@ -41,7 +42,6 @@ class DefaultController extends Controller
                 ]
             ])
 
-
             ->add('street', TextType::class, [
                 'label'  => 'Indirizzo',
                 'mapped' => false
@@ -49,6 +49,11 @@ class DefaultController extends Controller
             ->add('city', TextType::class, [
                 'label'  => 'Città',
                 'mapped' => false
+            ])
+            ->add('privacy', CheckboxType::class, [
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Ho letto e acconsento al trattamento dei miei dati // FIXME'
             ])
             ->getForm();
 
