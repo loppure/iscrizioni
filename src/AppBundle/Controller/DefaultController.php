@@ -66,6 +66,7 @@ class DefaultController extends Controller
             ];
 
             $user->setAddress($address_info);
+            $user->setCreatedAt(new \Datetime());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
