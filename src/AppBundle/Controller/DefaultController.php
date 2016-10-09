@@ -165,6 +165,9 @@ class DefaultController extends Controller
 
         $em->flush();
 
+        // send email!
+        $this->sendEmail($user);
+
         return array(
             'status' => $status->getValue(),
             'payment' => [
@@ -174,5 +177,30 @@ class DefaultController extends Controller
                 'payment' => $payment
             ]
         );
+    }
+
+    private function sendEmail($user)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Hey oh! Let\' go!')
+            ->setFrom('info@oppure.it')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'Email/registration.html.twig',
+                    ['user' => $user]
+                ),
+                'text/html'
+            )
+            ->addPart(
+                $this->renderView(
+                    'Email/registration.txt.twig',
+                    ['user' => $user]
+                ),
+                'text/html'
+            )
+            ;
+
+        $this->get('mailer')->send($message);
     }
 }
