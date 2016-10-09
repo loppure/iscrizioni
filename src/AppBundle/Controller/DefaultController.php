@@ -140,7 +140,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // if the payment was unseccessful...
-        if ($status->getValue() == "failed" || !$payment->getDetails()['paid']) {
+        /* dump($payment); */
+        /* die(); */
+        if ($status->getValue() == "failed" || !$payment->getDetails()['ACK'] == 'Success') {
             // delete user:
             $em->remove($user);
             $em->flush();
