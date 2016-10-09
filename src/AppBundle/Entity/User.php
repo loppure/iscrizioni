@@ -67,6 +67,21 @@ class User
     private $job;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="has_payed", type="boolean", nullable=true)
+     */
+    private $hasPayed;
+
+    /**
+     * @var \Datetime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+
+    /**
      * Get id
      *
      * @return integer
@@ -75,7 +90,6 @@ class User
     {
         return $this->id;
     }
-
 
     /**
      * Set firstname
@@ -261,5 +275,53 @@ class User
     public function getJobInt()
     {
         return $this->job;
+    }
+
+    /**
+     * Set hasPayed
+     *
+     * @param boolean $hasPayed
+     *
+     * @return User
+     */
+    public function setHasPayed($hasPayed)
+    {
+        $this->hasPayed = $hasPayed;
+
+        return $this;
+    }
+
+    /**
+     * Get hasPayed
+     *
+     * @return boolean
+     */
+    public function getHasPayed()
+    {
+        return $this->hasPayed;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
