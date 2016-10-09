@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         app_styl: './web/assets/stylus/app.styl',
         dst: './web/',
         app_css: './web/app.css'
-    }
+    };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
