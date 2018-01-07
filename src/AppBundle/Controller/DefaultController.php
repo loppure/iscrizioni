@@ -94,6 +94,7 @@ class DefaultController extends Controller
             break;
         case User::UNIVERSITA:
             $amount = 1000;
+            break;
         default:
             $amount = 2000;
             break;
