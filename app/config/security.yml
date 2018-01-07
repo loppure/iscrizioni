@@ -31,7 +31,9 @@ security:
                 check_path: login
                 default_target_path: admin
                 always_use_default_target_path: true
-            logout: true
+            logout:
+              path: /logout
+              target: /
             # activate different ways to authenticate
 
             # http_basic: ~
