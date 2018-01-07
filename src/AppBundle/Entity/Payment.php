@@ -20,6 +20,14 @@ class Payment extends BasePayment
     protected $id;
 
     /**
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="loppure_user_id", referencedColumnName="id")
+     */
+    protected $loppureUser;
+
+    /**
      * Get id
      *
      * @return integer
@@ -27,5 +35,29 @@ class Payment extends BasePayment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set loppureUser
+     *
+     * @param \AppBundle\Entity\User $loppureUser
+     *
+     * @return Payment
+     */
+    public function setLoppureUser(\AppBundle\Entity\User $loppureUser = null)
+    {
+        $this->loppureUser = $loppureUser;
+
+        return $this;
+    }
+
+    /**
+     * Get loppureUserId
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getLoppureUser()
+    {
+        return $this->loppureUser;
     }
 }

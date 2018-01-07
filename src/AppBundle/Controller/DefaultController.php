@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class DefaultController extends Controller
 {
@@ -41,7 +42,6 @@ class DefaultController extends Controller
                 ]
             ])
 
-
             ->add('street', TextType::class, [
                 'label'  => 'Indirizzo',
                 'mapped' => false
@@ -49,6 +49,11 @@ class DefaultController extends Controller
             ->add('city', TextType::class, [
                 'label'  => 'Città',
                 'mapped' => false
+            ])
+            ->add('privacy', CheckboxType::class, [
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Ho letto e acconsento al trattamento dei miei dati // FIXME'
             ])
             ->getForm();
 
@@ -61,6 +66,7 @@ class DefaultController extends Controller
             ];
 
             $user->setAddress($address_info);
+            $user->setCreatedAt(new \Datetime());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -96,9 +102,10 @@ class DefaultController extends Controller
         $payment = $storage->create();
         $payment->setNumber(uniqid());
         $payment->setCurrencyCode('EUR');
-        $payment->setTotalAmount($amount); //
-        $payment->setDescription('A description'); //
-        $payment->setClientEmail($user->getEmail()); //
+        $payment->setTotalAmount($amount);
+        $payment->setDescription('A description');
+        $payment->setClientEmail($user->getEmail());
+        $payment->setLoppureUser($user);
 
         $storage->update($payment);
 
@@ -117,21 +124,83 @@ class DefaultController extends Controller
      */
     public function thanksAction(Request $request)
     {
-        $token = $this->get('payum')->getHttpRequestVerifier()->verify($request);
-        $gateway = $this->get('payum')->getGateway($token->getGatewayname());
+        try {
+            $token = $this->get('payum')->getHttpRequestVerifier()->verify($request);
+            $gateway = $this->get('payum')->getGateway($token->getGatewayname());
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'error',
+                'Si è verificato un errore durante la transazione'
+            );
+            return $this->redirectToRoute('register');
+        }
 
         // remainder: invalidate with `$this->get('payum')->getHttpRequestVerifier()->invalidate($token)`
+        /* $this->get('payum')->getHttpRequestVerifier()->invalidate($token); */
 
         $gateway->execute($status = new GetHumanStatus($token));
         $payment = $status->getFirstModel();
+
+        // get user
+        $user = $payment->getLoppureUser();
+        $em = $this->getDoctrine()->getManager();
+
+        // if the payment was unseccessful...
+        /* dump($payment); */
+        /* die(); */
+        if ($status->getValue() == "failed" || !$payment->getDetails()['ACK'] == 'Success') {
+            // delete user:
+            $em->remove($user);
+            $em->flush();
+            $this->addFlash(
+                'error',
+                'Il pagamento non è andato a buon fine!'
+            );
+            return $this->redirectToRoute('register');
+        }
+
+        // save the user!
+        $user->setHasPayed(true);
+        $user->setUpdatedAt(new \Datetime());
+
+        $em->flush();
+
+        // send email!
+        $this->sendEmail($user);
 
         return array(
             'status' => $status->getValue(),
             'payment' => [
                 'total_amount' => $payment->getTotalAmount(),
                 'currency_code' => $payment->getCurrencyCode(),
-                'details' => $payment->getDetails()
+                'details' => $payment->getDetails(),
+                'payment' => $payment
             ]
         );
+    }
+
+    private function sendEmail($user)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Hey oh! Let\' go!')
+            ->setFrom('info@oppure.it')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'Email/registration.html.twig',
+                    ['user' => $user]
+                ),
+                'text/html'
+            )
+            ->addPart(
+                $this->renderView(
+                    'Email/registration.txt.twig',
+                    ['user' => $user]
+                ),
+                'text/html'
+            )
+            ;
+
+        $this->get('mailer')->send($message);
     }
 }

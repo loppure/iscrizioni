@@ -2,6 +2,14 @@
 
 {% block body %}
 
+  {# flash #}
+    {% for flash_message in app.session.flashBag.get('error') %}
+      <div class="flash-error">
+        {{ flash_message }}
+      </div>
+    {% endfor %}
+  {# end flash #}
+
   <section class="content-presentazione">
       <div class="blocchi-dati-4">
         <span>Operiamo nelle seguenti città</span>

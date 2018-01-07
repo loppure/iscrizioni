@@ -5,7 +5,8 @@
 
     <hr />
 
-    <p>status: {{ status }}</p>
-    {{ dump(status) }}
-    {{ dump(payment) }}
+    {% if app.environment == 'dev' %}
+        {{ dump(status) }}
+        {{ dump(payment) }}
+    {% endif %}
 {% endblock %}

@@ -18,4 +18,46 @@ class Payment extends BasePayment
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
+
+    /**
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="loppure_user_id", referencedColumnName="id")
+     */
+    protected $loppureUser;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set loppureUser
+     *
+     * @param \AppBundle\Entity\User $loppureUser
+     *
+     * @return Payment
+     */
+    public function setLoppureUser(\AppBundle\Entity\User $loppureUser = null)
+    {
+        $this->loppureUser = $loppureUser;
+
+        return $this;
+    }
+
+    /**
+     * Get loppureUserId
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getLoppureUser()
+    {
+        return $this->loppureUser;
+    }
 }

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * @author Omar Polo <yum1096@gmail.com>
@@ -34,18 +35,11 @@ class User
     private $firstname;
 
     /**
-     * @var String
-     *
-     * @ORM\Column(name="lastname", type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $lastname;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="birth", type="datetime")
      * @Assert\NotBlank()
+     * @AppAssert\IsAdult()
      */
     private $birth;
 
@@ -71,6 +65,28 @@ class User
      * @ORM\Column(name="job", type="smallint")
      */
     private $job;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="has_payed", type="boolean", nullable=true)
+     */
+    private $hasPayed;
+
+    /**
+     * @var \Datetime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \Datetime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
 
     /**
      * Get id
@@ -266,5 +282,53 @@ class User
     public function getJobInt()
     {
         return $this->job;
+    }
+
+    /**
+     * Set hasPayed
+     *
+     * @param boolean $hasPayed
+     *
+     * @return User
+     */
+    public function setHasPayed($hasPayed)
+    {
+        $this->hasPayed = $hasPayed;
+
+        return $this;
+    }
+
+    /**
+     * Get hasPayed
+     *
+     * @return boolean
+     */
+    public function getHasPayed()
+    {
+        return $this->hasPayed;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
