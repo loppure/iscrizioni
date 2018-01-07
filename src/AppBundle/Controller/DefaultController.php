@@ -151,6 +151,7 @@ class DefaultController extends Controller
         /* die(); */
         if ($status->getValue() == "failed" || !$payment->getDetails()['ACK'] == 'Success') {
             // delete user:
+            $em->remove($payment);
             $em->remove($user);
             $em->flush();
             $this->addFlash(
