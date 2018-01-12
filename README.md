@@ -1,6 +1,4 @@
-# Loppure Associazione
-
-A Symfony project created on August 13, 2016, 11:43 am.
+# L'oppure Associazione
 
 Installare le dipendenze di php
 ```sh
@@ -31,7 +29,8 @@ Servire il progetto
 ```sh
 php bin/console server:run
 ```
-[localhost:8000]
+
+[http://localhost:8000](http://localhost:8000)
 
 Stylus documentation: http://stylus-lang.com/
 
