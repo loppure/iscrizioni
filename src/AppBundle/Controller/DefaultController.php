@@ -6,8 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Payum\Core\Request\GetHumanStatus;
 use AppBundle\Entity\User;
+use AppBundle\Entity\UserToken;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -20,66 +22,194 @@ class DefaultController extends Controller
 
     /**
      * @Route("/", name="register")
-     * @Template("default/register.html.twig")
+     * @Template("default/home.html.twig")
      */
-    public function registerAction(Request $request)
+    public function homeAction(Request $request)
     {
-        $user = new User();
-
-        $form = $this->createFormBuilder($user)
-            ->add('firstname', TextType::class, ['label' => 'Nome Cognome'])
-            ->add('birth', DateType::class, [
-                'label' => 'Data di nascita',
-                'years' => range(date('Y'), 1900)
-            ])
-            ->add('email', EmailType::class, ['label' => 'Email'])
-            ->add('job', ChoiceType::class, [
-                'label' => 'Professione',
-                'choices' => [
-                    'Studente (fino a scuole superiori)' => User::SUPERIORI,
-                    'Studente universitario'             => User::UNIVERSITA,
-                    'Lavoratore'                         => User::LAVORATORE
-                ]
-            ])
-
-            ->add('street', TextType::class, [
-                'label'  => 'Indirizzo',
-                'mapped' => false
-            ])
-            ->add('city', TextType::class, [
-                'label'  => 'Città',
-                'mapped' => false
-            ])
-            ->add('privacy', CheckboxType::class, [
-                'mapped' => false,
-                'required' => true,
-                'label' => 'Ho letto e acconsento al trattamento dei miei dati // FIXME'
-            ])
-            ->getForm();
+        $defaultData = [];
+        $form = $this->createFormBuilder($defaultData)
+                     ->add('email', EmailType::class)
+                     ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $address_info = [
-                'street' => $form->get('street')->getData(),
-                'city' => $form->get('city')->getData()
-            ];
+            // $user_email = $form->getData()['email'];
+            $user = $this->getDoctrine()
+                         ->getRepository(User::class)
+                         ->findOneBy([
+                             'email' => $form->getData()['email']
+                         ]);
 
-            $user->setAddress($address_info);
-            $user->setCreatedAt(new \Datetime());
+            if (!$user) {
+                // user not found -- create a new one
+            } else {
+                // user found
+                // 1. Generate for him/her a new code
+                // 2. Send an email
+            }
+        }
 
+        return ['form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/verify/{code}", name="verify-email")
+     */
+    public function verifyEmailAction(Request $request, $code)
+    {
+        $token = $this->getDoctrine()
+                      ->getRepository(UserToken::class)
+                      ->findOneBy([
+                          'token' => $code
+                      ]);
+
+        if (!$token) {
+            throw $this->createNotFoundException();
+        }
+
+        $email = $token->getEmail();
+
+        // remove the token
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($token);
+        $em->flush();
+
+        // log in user
+        $session = new Session();
+        $session->migrate(true, 0);
+        $session->set('logged', true);
+        $session->set('email', $email);
+
+        return $this->redirectToRoute('updateinfo');
+    }
+
+    /**
+     * @Route("/me", name="updateinfo")
+     * @Template("default/register.html.twig")
+     */
+    public function updateInfoAction(Request $request)
+    {
+        $session = new Session();
+
+        if (!$session->get('logged')) {
+            throw $this->createNotFoundException();
+        }
+
+        $email = $session->get('email');
+
+        $user = $this->getDoctrine()
+                     ->getRepository(User::class)
+                     ->findOneBy(['email' => $email]);
+
+        if (!$user) {
+            // it's the first time the user logs in. It still does not
+            // have a row in the db
+            $user = new User();
+            $user->setEmail($email);
+        }
+
+        $form = $this->createFormBuilder($user)
+                     ->add('name', TextType::class, ['label' => "Nome e cognome"])
+                     ->add('birth', DateType::class, [
+                         'label' => 'Data di nascita',
+                         'years' => range(date('Y'), 1900)
+                     ])
+                     ->add('email', EmailType::class, ['label' => 'Email'])
+                     ->add('job', ChoiceType::class, [
+                         'label'   => 'Professione',
+                         'choices' => [
+                             'Studente (fino a scuole superiori)' => User::SUPERIORI,
+                             'Studente universitario'             => User::UNIVERSITA,
+                             'Lavoratore'                         => User::LAVORATORE
+                         ]
+                     ])
+                     ->add('address', TextType::class, [
+                         'label' => 'Indirizzo',
+                     ])
+                     ->add('city', TextType::class, [
+                         'label' => 'Città',
+                     ])
+                     ->getForm()
+              ;
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // update the user
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            return $this->paymentAction($user);
-            /* return $this->redirectToRoute('payment'); */
+            $this->get('session')->getFlashBag()->set('success', 'Informazioni aggiornate con successo!');
+            return $this->redirectToRoute('updateinfo');
         }
 
-        return array(
-            'form' => $form->createView()
-        );
+        return ['form' => $form->createView()];
     }
+
+    // /**
+    //  * @Route("/", name="register")
+    //  * @Template("default/register.html.twig")
+    //  */
+    // public function registerAction(Request $request)
+    // {
+    //     $user = new User();
+
+    //     $form = $this->createFormBuilder($user)
+    //         ->add('firstname', TextType::class, ['label' => 'Nome Cognome'])
+    //         ->add('birth', DateType::class, [
+    //             'label' => 'Data di nascita',
+    //             'years' => range(date('Y'), 1900)
+    //         ])
+    //         ->add('email', EmailType::class, ['label' => 'Email'])
+    //         ->add('job', ChoiceType::class, [
+    //             'label' => 'Professione',
+    //             'choices' => [
+    //                 'Studente (fino a scuole superiori)' => User::SUPERIORI,
+    //                 'Studente universitario'             => User::UNIVERSITA,
+    //                 'Lavoratore'                         => User::LAVORATORE
+    //             ]
+    //         ])
+
+    //         ->add('street', TextType::class, [
+    //             'label'  => 'Indirizzo',
+    //             'mapped' => false
+    //         ])
+    //         ->add('city', TextType::class, [
+    //             'label'  => 'Città',
+    //             'mapped' => false
+    //         ])
+    //         ->add('privacy', CheckboxType::class, [
+    //             'mapped' => false,
+    //             'required' => true,
+    //             'label' => 'Ho letto e acconsento al trattamento dei miei dati // FIXME'
+    //         ])
+    //         ->getForm();
+
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $address_info = [
+    //             'street' => $form->get('street')->getData(),
+    //             'city' => $form->get('city')->getData()
+    //         ];
+
+    //         $user->setAddress($address_info);
+    //         $user->setCreatedAt(new \Datetime());
+
+    //         $em = $this->getDoctrine()->getManager();
+    //         $em->persist($user);
+    //         $em->flush();
+
+    //         return $this->paymentAction($user);
+    //         /* return $this->redirectToRoute('payment'); */
+    //     }
+
+    //     return array(
+    //         'form' => $form->createView()
+    //     );
+    // }
 
     private function paymentAction(User $user)
     {
@@ -179,6 +309,31 @@ class DefaultController extends Controller
                 'payment' => $payment
             ]
         );
+    }
+
+    private function sendCode(User $user)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject("L'oppure Italia : codice di verifica email")
+            ->setFrom('info@oppure.it')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'Email/verification-code.html.twig',
+                    ['user' => $user]
+                ),
+                'text/html'
+            )
+            ->addPart(
+                $this->renderView(
+                    'Email/verification-code.txt.twig',
+                    ['user' => $user]
+                ),
+                'text/html'
+            )
+            ;
+
+        $this->get('mailer')->send($message);
     }
 
     private function sendEmail($user)

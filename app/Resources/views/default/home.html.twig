@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Hey</h1>
+
+    {% form_theme form 'form/fields.html.twig' %}
+
+    {{ form_errors(form) }} {# renderizza gli errori! #}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Invia</button>
+    {{ form_end(form) }}
+{% endblock %}
+

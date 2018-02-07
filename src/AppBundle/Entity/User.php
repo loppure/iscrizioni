@@ -29,10 +29,10 @@ class User
     /**
      * @var String
      *
-     * @ORM\Column(name="firstname", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $firstname;
+    private $name;
 
     /**
      * @var \DateTime
@@ -46,18 +46,27 @@ class User
     /**
      * @var String
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
 
     /**
-     * @var Array
+     * @var String
      *
-     * @ORM\Column(name="address", type="json_array")
+     * @ORM\Column(name="address", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $address;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(name="city", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $city;
 
     /**
      * @var String
@@ -67,175 +76,31 @@ class User
     private $job;
 
     /**
-     * @var bool
+     * @var Array
      *
-     * @ORM\Column(name="has_payed", type="boolean", nullable=true)
+     * @ORM\Column(name="yearsPaid", type="json_array")
      */
-    private $hasPayed;
+    private $yearsPaid;
 
     /**
      * @var \Datetime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var \Datetime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
 
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function __construct()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     *
-     * @return User
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * Get firstname
-     *
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     *
-     * @return User
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Get Full name
-     *
-     * @return String
-     */
-    public function getFullName()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * Set birth
-     *
-     * @param \DateTime $birth
-     *
-     * @return User
-     */
-    public function setBirth($birth)
-    {
-        $this->birth = $birth;
-
-        return $this;
-    }
-
-    /**
-     * Get birth
-     *
-     * @return \DateTime
-     */
-    public function getBirth()
-    {
-        return $this->birth;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set address
-     *
-     * @param array $address
-     *
-     * @return User
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return array
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Get address string
-     *
-     * @return string
-     */
-    public function getAddressString()
-    {
-        return implode(', ', $this->address);
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
     }
 
     /**
@@ -275,71 +140,167 @@ class User
     }
 
     /**
-     * Get job int
+     * Get id.
      *
      * @return int
      */
-    public function getJobInt()
+    public function getId()
     {
-        return $this->job;
+        return $this->id;
     }
 
     /**
-     * Set hasPayed
+     * Set name.
      *
-     * @param boolean $hasPayed
+     * @param string $name
      *
      * @return User
      */
-    public function setHasPayed($hasPayed)
+    public function setName($name)
     {
-        $this->hasPayed = $hasPayed;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get hasPayed
+     * Get name.
      *
-     * @return boolean
+     * @return string
      */
-    public function getHasPayed()
+    public function getName()
     {
-        return $this->hasPayed;
+        return $this->name;
     }
 
     /**
-     * Set updatedAt
+     * Set birth.
      *
-     * @param \DateTime $updatedAt
+     * @param \DateTime $birth
      *
      * @return User
      */
-    public function setUpdatedAt($updatedAt)
+    public function setBirth($birth)
     {
-        $this->updatedAt = $updatedAt;
+        $this->birth = $birth;
 
         return $this;
     }
 
     /**
-     * Get updatedAt
+     * Get birth.
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getBirth()
     {
-        return $this->updatedAt;
+        return $this->birth;
     }
 
     /**
-     * Set createdAt
+     * Set email.
      *
-     * @param \DateTime $createdAt
+     * @param string $email
      *
      * @return User
      */
-    public function setCreatedAt($createdAt)
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email.
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set address.
+     *
+     * @param string $address
+     *
+     * @return User
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address.
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set city.
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city.
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set yearsPaid.
+     *
+     * @param array $yearsPaid
+     *
+     * @return User
+     */
+    public function setYearsPaid($yearsPaid)
+    {
+        $this->yearsPaid = $yearsPaid;
+
+        return $this;
+    }
+
+    /**
+     * Get yearsPaid.
+     *
+     * @return array
+     */
+    public function getYearsPaid()
+    {
+        return $this->yearsPaid;
+    }
+
+    /**
+     * Set createdAt.
+     *
+     * @param \DateTime|null $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt = null)
     {
         $this->createdAt = $createdAt;
 
@@ -347,12 +308,36 @@ class User
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt.
+     *
+     * @param \DateTime|null $updatedAt
+     *
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
