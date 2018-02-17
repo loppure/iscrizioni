@@ -20,16 +20,9 @@ class User
     const LAVORATORE = 2;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @ORM\Id
-     */
-    private $id;
-
-    /**
      * @var String
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
     private $name;
@@ -37,7 +30,7 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birth", type="datetime")
+     * @ORM\Column(name="birth", type="datetime", nullable=true)
      * @Assert\NotBlank()
      * @AppAssert\IsAdult()
      */
@@ -46,6 +39,8 @@ class User
     /**
      * @var String
      *
+     * @ORM\Id
+     * @ORM\OneToOne(targetEntity="User", mappedBy="email")
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
@@ -55,7 +50,7 @@ class User
     /**
      * @var String
      *
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
     private $address;
@@ -63,7 +58,7 @@ class User
     /**
      * @var String
      *
-     * @ORM\Column(name="city", type="string", length=255)
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
     private $city;
@@ -71,16 +66,9 @@ class User
     /**
      * @var String
      *
-     * @ORM\Column(name="job", type="smallint")
+     * @ORM\Column(name="job", type="smallint", nullable=true)
      */
     private $job;
-
-    /**
-     * @var Array
-     *
-     * @ORM\Column(name="yearsPaid", type="json_array")
-     */
-    private $yearsPaid;
 
     /**
      * @var \Datetime
@@ -267,30 +255,6 @@ class User
     public function getCity()
     {
         return $this->city;
-    }
-
-    /**
-     * Set yearsPaid.
-     *
-     * @param array $yearsPaid
-     *
-     * @return User
-     */
-    public function setYearsPaid($yearsPaid)
-    {
-        $this->yearsPaid = $yearsPaid;
-
-        return $this;
-    }
-
-    /**
-     * Get yearsPaid.
-     *
-     * @return array
-     */
-    public function getYearsPaid()
-    {
-        return $this->yearsPaid;
     }
 
     /**

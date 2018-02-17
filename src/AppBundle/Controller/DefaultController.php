@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Payum\Core\Request\GetHumanStatus;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserToken;
+use AppBundle\Entity\YearsPaid;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -24,7 +25,7 @@ class DefaultController extends Controller
      * @Route("/", name="register")
      * @Template("default/home.html.twig")
      */
-    public function homeAction(Request $request)
+    public function homeAction(Request $request, \Swift_Mailer $mailer)
     {
         $defaultData = [];
         $form = $this->createFormBuilder($defaultData)
@@ -34,20 +35,40 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $email = $form->getData()['email'];
             // $user_email = $form->getData()['email'];
             $user = $this->getDoctrine()
                          ->getRepository(User::class)
                          ->findOneBy([
-                             'email' => $form->getData()['email']
+                             'email' => $email
                          ]);
 
+            $r = $this->getDoctrine()->getRepository(UserToken::class);
+
             if (!$user) {
-                // user not found -- create a new one
+                $user = new User();
+                $user->setEmail($email);
+                $token = $r->createUserAndToken($user);
             } else {
-                // user found
-                // 1. Generate for him/her a new code
-                // 2. Send an email
+                $token = $r->createTokenForUser($user);
             }
+
+            $message = \Swift_Message('L\'oppure :: Verifica email')
+                     ->setFrom('noreply@loppure.it')
+                     ->setTo($user->getEmail())
+                     ->setBody(
+                         $this->renderView('Email/verification-code.html.twig', ['user' => $user]),
+                         'text/html'
+                     )
+                     ->addPart(
+                         $this->renderView('Email/verification-code.html.txt', ['user' => $user]),
+                         'text/plain'
+                     )
+                     ;
+
+            $mailer->send($message);
+
+            return $this->render('default/email-sent.html.twig', ['user' => $user]);
         }
 
         return ['form' => $form->createView()];
@@ -148,75 +169,32 @@ class DefaultController extends Controller
         return ['form' => $form->createView()];
     }
 
-    // /**
-    //  * @Route("/", name="register")
-    //  * @Template("default/register.html.twig")
-    //  */
-    // public function registerAction(Request $request)
-    // {
-    //     $user = new User();
-
-    //     $form = $this->createFormBuilder($user)
-    //         ->add('firstname', TextType::class, ['label' => 'Nome Cognome'])
-    //         ->add('birth', DateType::class, [
-    //             'label' => 'Data di nascita',
-    //             'years' => range(date('Y'), 1900)
-    //         ])
-    //         ->add('email', EmailType::class, ['label' => 'Email'])
-    //         ->add('job', ChoiceType::class, [
-    //             'label' => 'Professione',
-    //             'choices' => [
-    //                 'Studente (fino a scuole superiori)' => User::SUPERIORI,
-    //                 'Studente universitario'             => User::UNIVERSITA,
-    //                 'Lavoratore'                         => User::LAVORATORE
-    //             ]
-    //         ])
-
-    //         ->add('street', TextType::class, [
-    //             'label'  => 'Indirizzo',
-    //             'mapped' => false
-    //         ])
-    //         ->add('city', TextType::class, [
-    //             'label'  => 'Città',
-    //             'mapped' => false
-    //         ])
-    //         ->add('privacy', CheckboxType::class, [
-    //             'mapped' => false,
-    //             'required' => true,
-    //             'label' => 'Ho letto e acconsento al trattamento dei miei dati // FIXME'
-    //         ])
-    //         ->getForm();
-
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $address_info = [
-    //             'street' => $form->get('street')->getData(),
-    //             'city' => $form->get('city')->getData()
-    //         ];
-
-    //         $user->setAddress($address_info);
-    //         $user->setCreatedAt(new \Datetime());
-
-    //         $em = $this->getDoctrine()->getManager();
-    //         $em->persist($user);
-    //         $em->flush();
-
-    //         return $this->paymentAction($user);
-    //         /* return $this->redirectToRoute('payment'); */
-    //     }
-
-    //     return array(
-    //         'form' => $form->createView()
-    //     );
-    // }
-
-    private function paymentAction(User $user)
+    /**
+     * @Route("/me/pay", name="pay")
+     */
+    public function paymentAction()
     {
+        $session = new Session();
+
+        if (!$session->get('logged')) {
+            throw $this->createNotFoundException();
+        }
+
+        $email = $session->get('email');
+
+        $user = $this->getDoctrine()
+                     ->getRepository(User::class)
+                     ->findOneBy(['email' => $email]);
+
         $gatewayName = "paypal_express_checkout";
         $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
 
         $job = $user->getJobInt();
+
+        if (!$job || !$this->getDoctrine()->getRepository(YearsPaid::class)->shouldPay($user)) {
+            // TODO: custom exception
+            throw $this->createNotFoundException();
+        }
 
         switch ($user->getJobInt()) {
         case User::SUPERIORI:
@@ -234,7 +212,7 @@ class DefaultController extends Controller
         $payment->setNumber(uniqid());
         $payment->setCurrencyCode('EUR');
         $payment->setTotalAmount($amount);
-        $payment->setDescription('A description');
+        $payment->setDescription('Iscrizione all\'associazione "L\'oppure".');
         $payment->setClientEmail($user->getEmail());
         $payment->setLoppureUser($user);
 
@@ -291,14 +269,9 @@ class DefaultController extends Controller
             return $this->redirectToRoute('register');
         }
 
-        // save the user!
-        $user->setHasPayed(true);
-        $user->setUpdatedAt(new \Datetime());
-
+        $yp = new Yearspaid($user->getEmail(), date('Y'));
+        $em->persist($yp);
         $em->flush();
-
-        // send email!
-        $this->sendEmail($user);
 
         return array(
             'status' => $status->getValue(),
@@ -311,53 +284,4 @@ class DefaultController extends Controller
         );
     }
 
-    private function sendCode(User $user)
-    {
-        $message = \Swift_Message::newInstance()
-            ->setSubject("L'oppure Italia : codice di verifica email")
-            ->setFrom('info@oppure.it')
-            ->setTo($user->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'Email/verification-code.html.twig',
-                    ['user' => $user]
-                ),
-                'text/html'
-            )
-            ->addPart(
-                $this->renderView(
-                    'Email/verification-code.txt.twig',
-                    ['user' => $user]
-                ),
-                'text/html'
-            )
-            ;
-
-        $this->get('mailer')->send($message);
-    }
-
-    private function sendEmail($user)
-    {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Hey oh! Let\' go!')
-            ->setFrom('info@oppure.it')
-            ->setTo($user->getEmail())
-            ->setBody(
-                $this->renderView(
-                    'Email/registration.html.twig',
-                    ['user' => $user]
-                ),
-                'text/html'
-            )
-            ->addPart(
-                $this->renderView(
-                    'Email/registration.txt.twig',
-                    ['user' => $user]
-                ),
-                'text/html'
-            )
-            ;
-
-        $this->get('mailer')->send($message);
-    }
 }

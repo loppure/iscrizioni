@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
+use AppBundle\Entity\UserToken;
+
 /**
  * UserTokenRepository
  *
@@ -10,4 +13,31 @@ namespace AppBundle\Repository;
  */
 class UserTokenRepository extends \Doctrine\ORM\EntityRepository
 {
+    public static $token_len = 128;
+
+    public function createTokenForUser(User $u) : UserToken
+    {
+        $t = bin2hex(random_bytes(self::token_len));
+
+        $token = new UserToken();
+        $token->setEmail($u->getEmail());
+        $token->setToken($t);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($token);
+        $em->flush();
+
+        return $token;
+    }
+
+    public function createUserAndToken(User $u) : UserToken
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($u);
+        $em->flush();
+
+        $token = $this->createTokenForUser($u);
+
+        return $token;
+    }
 }

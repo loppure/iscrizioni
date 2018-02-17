@@ -17,7 +17,6 @@ class UserToken
      *
      * @ORM\Id
      * @ORM\OneToOne(targetEntity="User", mappedBy="email")
-     * @ORM\JoinColumn(name="email", , onDelete="CASCADE", onUpdate="CASCADE")
      */
     private $email;
 
@@ -41,7 +40,6 @@ class UserToken
      */
     public function __construct()
     {
-        $this->token = md5(uniqid());
         $this->created_at = new \DateTime();
     }
 
