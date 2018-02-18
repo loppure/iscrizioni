@@ -13,17 +13,16 @@ use AppBundle\Entity\UserToken;
  */
 class UserTokenRepository extends \Doctrine\ORM\EntityRepository
 {
-    public static $token_len = 128;
-
     public function createTokenForUser(User $u) : UserToken
     {
-        $t = bin2hex(random_bytes(self::token_len));
+        $token_len = 64;
+        $t = bin2hex(random_bytes($token_len));
 
         $token = new UserToken();
         $token->setEmail($u->getEmail());
         $token->setToken($t);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $em->persist($token);
         $em->flush();
 
@@ -32,12 +31,26 @@ class UserTokenRepository extends \Doctrine\ORM\EntityRepository
 
     public function createUserAndToken(User $u) : UserToken
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $em->persist($u);
         $em->flush();
 
         $token = $this->createTokenForUser($u);
 
         return $token;
+    }
+
+    public function getToken(String $token) : UserToken
+    {
+        $date = new \DateTime();
+        date_sub($date, date_interval_create_from_date_string('20 minutes'));
+
+        $r = $this->createQueryBuilder('t')
+                    ->andWhere('t.created_at > :date')
+                    ->setParameter('date', $date)
+                    ->getQuery()
+                    ->execute();
+
+        return $r != null ? $r[0] : null;
     }
 }

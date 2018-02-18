@@ -12,10 +12,10 @@ use AppBundle\Entity\User;
  */
 class YearsPaidRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function shouldPay(User $user) : Boolean
+    public function shouldPay(User $user) : bool
     {
         $y = date('Y');
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $years = $this->findBy([
             'user' => $user->getEmail(),
         ]);

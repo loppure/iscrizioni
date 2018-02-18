@@ -22,6 +22,17 @@ class User
     /**
      * @var String
      *
+     * @ORM\Id
+     * @ORM\OneToOne(targetEntity="User", mappedBy="email")
+     * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    private $email;
+
+    /**
+     * @var String
+     *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
@@ -35,17 +46,6 @@ class User
      * @AppAssert\IsAdult()
      */
     private $birth;
-
-    /**
-     * @var String
-     *
-     * @ORM\Id
-     * @ORM\OneToOne(targetEntity="User", mappedBy="email")
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    private $email;
 
     /**
      * @var String
@@ -75,15 +75,14 @@ class User
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    private $created_at;
 
     /**
      * @var \Datetime
      *
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
-
+    private $updated_at;
 
     public function __construct()
     {

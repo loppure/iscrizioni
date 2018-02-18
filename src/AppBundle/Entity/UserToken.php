@@ -16,23 +16,25 @@ class UserToken
      * @var string
      *
      * @ORM\Id
-     * @ORM\OneToOne(targetEntity="User", mappedBy="email")
+     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="User")
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=32, unique=true)
+     * @ORM\Id
+     * @ORM\Column(name="token", type="string", length=128)
      */
     private $token;
 
     /**
      * @var \Datetime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    private $created_at;
 
 
     /**

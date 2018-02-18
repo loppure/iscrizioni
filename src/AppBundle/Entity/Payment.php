@@ -23,7 +23,7 @@ class Payment extends BasePayment
      * @var User
      *
      * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="loppure_user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="loppure_user_id", referencedColumnName="email")
      */
     protected $loppureUser;
 
