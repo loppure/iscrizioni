@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Payum\Core\Request\GetHumanStatus;
+use Swift_Message;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserToken;
 use AppBundle\Entity\YearsPaid;
@@ -25,7 +26,7 @@ class DefaultController extends Controller
      * @Route("/", name="register")
      * @Template("default/home.html.twig")
      */
-    public function homeAction(Request $request, \Swift_Mailer $mailer)
+    public function homeAction(Request $request)
     {
         $defaultData = [];
         $form = $this->createFormBuilder($defaultData)
@@ -53,20 +54,22 @@ class DefaultController extends Controller
                 $token = $r->createTokenForUser($user);
             }
 
-            $message = \Swift_Message('L\'oppure :: Verifica email')
+            $message = (new Swift_Message('L\'oppure :: Verifica email'))
                      ->setFrom('noreply@loppure.it')
                      ->setTo($user->getEmail())
                      ->setBody(
-                         $this->renderView('Email/verification-code.html.twig', ['user' => $user]),
+                         $this->renderView('Email/verification-code.html.twig', ['user' => $token]),
                          'text/html'
                      )
                      ->addPart(
-                         $this->renderView('Email/verification-code.html.txt', ['user' => $user]),
+                         $this->renderView('Email/verification-code.txt.twig', ['user' => $token]),
                          'text/plain'
                      )
                      ;
 
-            $mailer->send($message);
+
+            $mailer = $this->container->get('mailer')
+                                      ->send($message);
 
             return $this->render('default/email-sent.html.twig', ['user' => $user]);
         }
@@ -81,9 +84,7 @@ class DefaultController extends Controller
     {
         $token = $this->getDoctrine()
                       ->getRepository(UserToken::class)
-                      ->findOneBy([
-                          'token' => $code
-                      ]);
+                      ->getToken($code);
 
         if (!$token) {
             throw $this->createNotFoundException();
@@ -189,14 +190,14 @@ class DefaultController extends Controller
         $gatewayName = "paypal_express_checkout";
         $storage = $this->get('payum')->getStorage('AppBundle\Entity\Payment');
 
-        $job = $user->getJobInt();
+        $job = $user->getJob();
 
         if (!$job || !$this->getDoctrine()->getRepository(YearsPaid::class)->shouldPay($user)) {
             // TODO: custom exception
             throw $this->createNotFoundException();
         }
 
-        switch ($user->getJobInt()) {
+        switch ($user->getJob()) {
         case User::SUPERIORI:
             $amount = 100;
             break;
